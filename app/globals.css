@@ -1,26 +1,260 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ──────────────────────────────────────────────
+   DESIGN TOKENS — Tailwind v4 @theme
+   ────────────────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* River / Primary (teal-blue) */
+  --color-river-50: oklch(0.97 0.02 195);
+  --color-river-100: oklch(0.93 0.04 195);
+  --color-river-200: oklch(0.86 0.07 195);
+  --color-river-300: oklch(0.76 0.10 195);
+  --color-river-400: oklch(0.65 0.13 195);
+  --color-river-500: oklch(0.55 0.14 195);
+  --color-river-600: oklch(0.47 0.13 195);
+  --color-river-700: oklch(0.40 0.11 195);
+  --color-river-800: oklch(0.33 0.09 195);
+  --color-river-900: oklch(0.27 0.07 195);
+  --color-river-950: oklch(0.19 0.05 195);
+
+  /* Heritage / Accent (terracotta-gold) */
+  --color-heritage-50: oklch(0.97 0.02 65);
+  --color-heritage-100: oklch(0.93 0.04 60);
+  --color-heritage-200: oklch(0.87 0.08 55);
+  --color-heritage-300: oklch(0.79 0.12 50);
+  --color-heritage-400: oklch(0.72 0.14 45);
+  --color-heritage-500: oklch(0.63 0.15 40);
+  --color-heritage-600: oklch(0.55 0.14 35);
+  --color-heritage-700: oklch(0.47 0.12 32);
+  --color-heritage-800: oklch(0.40 0.10 30);
+  --color-heritage-900: oklch(0.33 0.08 28);
+
+  /* Sun Gold */
+  --color-sun-400: oklch(0.82 0.16 85);
+  --color-sun-500: oklch(0.76 0.17 80);
+  --color-sun-600: oklch(0.68 0.16 75);
+
+  /* Philippine Flag accents */
+  --color-flag-blue: oklch(0.40 0.15 255);
+  --color-flag-red: oklch(0.50 0.20 25);
+
+  /* Neutrals */
+  --color-sand-50: oklch(0.98 0.005 80);
+  --color-sand-100: oklch(0.96 0.01 75);
+  --color-sand-200: oklch(0.93 0.015 70);
+  --color-sand-800: oklch(0.28 0.02 60);
+  --color-sand-900: oklch(0.20 0.015 55);
+  --color-sand-950: oklch(0.14 0.01 50);
+
+  /* Typography */
+  --font-heading: var(--font-playfair), "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: var(--font-inter), "Inter", "Source Sans 3", system-ui, sans-serif;
+
+  /* Spacing */
+  --spacing-section: 5rem;
+
+  /* Animations */
+  --animate-fade-up: fade-up 0.8s ease-out both;
+  --animate-fade-in: fade-in 0.6s ease-out both;
+  --animate-ken-burns: ken-burns 25s ease-in-out infinite alternate;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-bounce-slow: bounce-slow 2.5s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ──────────────────────────────────────────────
+   KEYFRAMES
+   ────────────────────────────────────────────── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.12) translate(-2%, -1%);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+@keyframes count-up-glow {
+  0%, 100% { text-shadow: 0 0 0 transparent; }
+  50% { text-shadow: 0 0 20px oklch(0.76 0.17 80 / 0.4); }
+}
+
+@keyframes wave-motion {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ──────────────────────────────────────────────
+   BASE STYLES
+   ────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-sand-50);
+  color: var(--color-sand-900);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: oklch(0.55 0.14 195 / 0.3);
+  color: var(--color-river-950);
+}
+
+/* ──────────────────────────────────────────────
+   SCROLLBAR
+   ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sand-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-river-400);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-river-500);
+}
+
+/* ──────────────────────────────────────────────
+   UTILITY CLASSES
+   ────────────────────────────────────────────── */
+.text-gradient-river {
+  background: linear-gradient(135deg, var(--color-river-400), var(--color-river-600));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-heritage {
+  background: linear-gradient(135deg, var(--color-heritage-400), var(--color-sun-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: oklch(1 0 0 / 0.08);
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  border: 1px solid oklch(1 0 0 / 0.12);
+}
+
+.glass-dark {
+  background: oklch(0.15 0.01 50 / 0.75);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid oklch(1 0 0 / 0.08);
+}
+
+/* Wave divider */
+.wave-divider {
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 60px;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 40px oklch(0.55 0.14 195 / 0.12),
+    0 4px 12px oklch(0 0 0 / 0.06);
+}
+
+/* Tag styles */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.tag-heritage { background: oklch(0.93 0.04 60); color: var(--color-heritage-700); }
+.tag-nature { background: oklch(0.93 0.04 150); color: oklch(0.35 0.12 150); }
+.tag-faith { background: oklch(0.93 0.04 255); color: var(--color-flag-blue); }
+.tag-food { background: oklch(0.93 0.04 25); color: oklch(0.45 0.14 25); }
+
+.tag-ordinance { background: oklch(0.93 0.04 195); color: var(--color-river-700); }
+.tag-resolution { background: oklch(0.93 0.04 150); color: oklch(0.35 0.12 150); }
+.tag-advisory { background: oklch(0.93 0.04 85); color: oklch(0.45 0.14 85); }
+.tag-program { background: oklch(0.93 0.04 300); color: oklch(0.40 0.14 300); }
+
+/* Section heading underline */
+.section-heading-line {
+  position: relative;
+  display: inline-block;
+}
+.section-heading-line::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-heritage-400), var(--color-sun-500));
+  border-radius: 2px;
+}
+
+/* Horizontal scroll container */
+.horizontal-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 1rem;
+}
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+.horizontal-scroll > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
 }

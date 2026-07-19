@@ -158,40 +158,41 @@ export default function TourismSection() {
         </div>
 
         {/* Plan Your Visit */}
-        <ScrollReveal>
-          <div className="relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 p-8 sm:p-12 backdrop-blur-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50" />
+        <div className="px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 px-6 py-10 sm:p-12 backdrop-blur-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50" />
             
             <h3 className="relative font-heading text-3xl sm:text-4xl font-medium text-white mb-10 text-center">
               Plan Your Visit
             </h3>
 
-            <div className="relative grid sm:grid-cols-3 gap-8 sm:gap-12">
+            <div className="relative grid sm:grid-cols-3 gap-10 sm:gap-12">
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-5 sm:mb-6">
                   <Car className="w-6 h-6 text-sun-400" />
                 </div>
-                <h4 className="font-heading text-xl font-medium text-white mb-3">Getting There</h4>
-                <p className="font-body text-sm text-white/60 leading-relaxed">
+                <h4 className="font-heading text-xl font-medium text-white mb-2 sm:mb-3">Getting There</h4>
+                <p className="font-body text-sm text-white/60 leading-relaxed max-w-[260px] sm:max-w-none">
                   Lallo is a 45-minute drive from Tuguegarao City. Regular van and bus services are available.
                 </p>
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-5 sm:mb-6">
                   <Hotel className="w-6 h-6 text-sun-400" />
                 </div>
-                <h4 className="font-heading text-xl font-medium text-white mb-3">Where to Stay</h4>
-                <p className="font-body text-sm text-white/60 leading-relaxed">
+                <h4 className="font-heading text-xl font-medium text-white mb-2 sm:mb-3">Where to Stay</h4>
+                <p className="font-body text-sm text-white/60 leading-relaxed max-w-[260px] sm:max-w-none">
                   Choose from immersive local homestays in Lallo or larger hotels in nearby Tuguegarao City.
                 </p>
               </div>
 
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-5 sm:mb-6">
                   <Phone className="w-6 h-6 text-sun-400" />
                 </div>
-                <h4 className="font-heading text-xl font-medium text-white mb-3">Tourism Office</h4>
+                <h4 className="font-heading text-xl font-medium text-white mb-2 sm:mb-3">Tourism Office</h4>
                 <p className="font-body text-sm text-white/60 leading-relaxed">
                   Contact us for guided tours and assistance.<br/>
                   <span className="text-sun-400 mt-2 block">tourism@lallo.gov.ph</span>
@@ -200,6 +201,7 @@ export default function TourismSection() {
             </div>
           </div>
         </ScrollReveal>
+        </div>
 
       </div>
     </section>

@@ -44,7 +44,7 @@ export default function Header() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className={`pointer-events-auto flex items-center justify-between w-full max-w-5xl transition-all duration-500 rounded-full border ${
             scrolled
-              ? "bg-white/10 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-white/20 py-2 px-4 sm:px-6"
+              ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5 border-black/10 py-2 px-4 sm:px-6"
               : "bg-transparent border-transparent py-4 px-2"
           }`}
         >
@@ -53,36 +53,42 @@ export default function Header() {
             <div
               className={`rounded-full flex items-center justify-center font-heading font-bold transition-all duration-500 ${
                 scrolled
-                  ? "w-8 h-8 text-xs bg-white/20 text-white"
+                  ? "w-8 h-8 text-xs bg-river-950 text-white"
                   : "w-10 h-10 text-sm border border-white/30 bg-white/10 text-white"
               }`}
             >
               L
             </div>
             <div className="hidden sm:block">
-              <p className="font-heading font-bold text-white tracking-wide">
+              <p className={`font-heading font-bold tracking-wide transition-colors ${scrolled ? "text-river-950" : "text-white"}`}>
                 Lallo
               </p>
             </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/10 backdrop-blur-md">
+          <nav className={`hidden lg:flex items-center gap-1 rounded-full p-1 border backdrop-blur-md transition-colors ${
+            scrolled ? "bg-black/5 border-black/5" : "bg-white/5 border-white/10"
+          }`}>
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative px-4 py-1.5 text-xs uppercase tracking-widest font-body font-medium text-white/80 hover:text-white rounded-full transition-colors group"
+                className={`relative px-4 py-1.5 text-xs uppercase tracking-widest font-body font-medium rounded-full transition-colors group ${
+                  scrolled ? "text-sand-900 hover:text-black" : "text-white/80 hover:text-white"
+                }`}
               >
                 {link.label}
-                <span className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-colors" />
+                <span className={`absolute inset-0 rounded-full transition-colors ${scrolled ? "group-hover:bg-black/5" : "group-hover:bg-white/10"}`} />
               </Link>
             ))}
           </nav>
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors border border-white/20"
+            className={`lg:hidden p-2 rounded-full transition-colors border ${
+              scrolled ? "bg-black/5 text-river-950 hover:bg-black/10 border-black/10" : "bg-white/10 text-white hover:bg-white/20 border-white/20"
+            }`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Open menu"
           >

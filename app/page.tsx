@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import StatStrip from "@/components/StatStrip";
+import ServicesSection from "@/components/ServicesSection";
 import OfficialsSection from "@/components/OfficialsSection";
 import TransparencySection from "@/components/TransparencySection";
 import TourismSection from "@/components/TourismSection";
@@ -16,9 +17,12 @@ export default function Home() {
         <Hero />
         <StatStrip />
 
-        {/* Wave: dark stat strip → light officials */}
+        {/* New Services Section */}
+        <ServicesSection />
+
+        {/* Wave: light services → light officials */}
         <WaveDivider
-          colorFrom="var(--color-river-900)"
+          colorFrom="var(--color-sand-50)"
           colorTo="var(--color-sand-50)"
         />
 

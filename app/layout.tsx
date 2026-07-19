@@ -15,6 +15,13 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport = {
+  themeColor: "#051A26", // river-950
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "Municipality of Lallo, Cagayan — Official Portal",
   description:
@@ -31,6 +38,13 @@ export const metadata: Metadata = {
     "ordinances",
     "transparency",
   ],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%23C18E4E'/><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='50' font-weight='bold' fill='%23ffffff'>L</text></svg>",
+  },
   openGraph: {
     title: "Municipality of Lallo, Cagayan — Official Portal",
     description:

@@ -22,7 +22,7 @@ export default function OfficialsSection() {
                 Leadership
               </span>
               <h2 className="font-heading text-5xl sm:text-6xl md:text-7xl font-medium text-sand-950 tracking-tight leading-none">
-                Sangguniang <span className="text-heritage-600 italic">Bayan</span>
+                Municipal <span className="text-heritage-600 italic">Officials</span>
               </h2>
             </div>
             <p className="font-body text-sand-800/60 max-w-sm text-sm sm:text-base leading-relaxed">
@@ -31,45 +31,77 @@ export default function OfficialsSection() {
           </div>
         </ScrollReveal>
 
-        {/* BENTO BOX GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[200px] gap-4 sm:gap-6">
-          
-          {/* Mayor - Spans 2 cols, 2 rows */}
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-2 md:row-span-2"
-          >
-            <OfficialCard official={mayor} variant="spotlight" />
-          </motion.div>
+        {/* EXECUTIVE BRANCH - OFFICE OF THE MAYOR */}
+        <ScrollReveal>
+          <div className="mb-20">
+            <div className="flex items-center gap-4 mb-8">
+              <h3 className="font-heading text-3xl font-medium text-sand-950">
+                Office of the Mayor
+              </h3>
+              <div className="flex-1 h-px bg-black/10" />
+            </div>
+            <div className="w-full xl:w-5/6">
+              <OfficialCard official={mayor} variant="spotlight" />
+            </div>
+          </div>
+        </ScrollReveal>
 
-          {/* Vice Mayor - Spans 2 cols, 1 row */}
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-2 lg:col-span-2 row-span-1"
-          >
-            <OfficialCard official={viceMayor} variant="spotlight" />
-          </motion.div>
-
-          {/* Councilors - 1 col, 1 row each */}
-          {councilors.map((c, i) => (
-            <motion.div
-              key={c.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.2 + (i * 0.05), ease: [0.16, 1, 0.3, 1] }}
-              className="col-span-1 row-span-1"
+        {/* LEGISLATIVE BRANCH - SANGGUNIANG BAYAN */}
+        <ScrollReveal>
+          <div>
+            <div className="flex items-center gap-4 mb-8">
+              <h3 className="font-heading text-3xl font-medium text-sand-950">
+                Sangguniang Bayan
+              </h3>
+              <div className="flex-1 h-px bg-black/10" />
+            </div>
+            
+            {/* Vice Mayor - Presiding Officer */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full xl:w-5/6 mb-8"
             >
-              <OfficialCard official={c} variant="grid" />
+              <OfficialCard official={viceMayor} variant="spotlight" />
             </motion.div>
-          ))}
-        </div>
+            
+            {/* BENTO BOX GRID - Councilors */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[200px] gap-4 sm:gap-6">
+              {/* Councilors - 1 col, 1 row each */}
+              {councilors.map((c, i) => (
+                <motion.div
+                  key={c.id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: 0.1 + (i * 0.05), ease: [0.16, 1, 0.3, 1] }}
+                  className="col-span-1 row-span-1"
+                >
+                  <OfficialCard official={c} variant="grid" />
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* EX-OFFICIO MEMBERS */}
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {officials.filter(o => o.role === "ex-officio").map((c, i) => (
+                <motion.div
+                  key={c.id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: 0.1 + (i * 0.05), ease: [0.16, 1, 0.3, 1] }}
+                  className="col-span-1 h-[200px]"
+                >
+                  <OfficialCard official={c} variant="grid" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
+
       </div>
     </section>
   );

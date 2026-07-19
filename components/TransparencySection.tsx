@@ -11,8 +11,10 @@ import {
   Newspaper,
   Calendar,
   ExternalLink,
-  ArrowRight
+  ArrowRight,
+  FileText
 } from "lucide-react";
+import SectionHeader from "./ui/SectionHeader";
 
 const categories = ["All", "Ordinance", "Resolution", "Advisory", "Program"] as const;
 type CategoryFilter = (typeof categories)[number];
@@ -45,15 +47,15 @@ export default function TransparencySection() {
           {/* Section Header */}
           <div className="flex-1">
             <ScrollReveal>
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-river-200 bg-river-50 text-river-600 text-xs font-body font-bold tracking-widest uppercase mb-6">
-                Good Governance
-              </span>
-              <h2 className="font-heading text-5xl sm:text-6xl font-medium text-sand-950 tracking-tight leading-none mb-6">
-                Transparency & <span className="text-river-600 italic">Ordinances</span>
-              </h2>
-              <p className="font-body text-sand-800/60 text-sm sm:text-base leading-relaxed max-w-lg">
-                Access the latest ordinances, resolutions, and programs from the Sangguniang Bayan of Lallo.
-              </p>
+              <SectionHeader
+                eyebrow="Good Governance"
+                title={
+                  <>
+                    Transparency & <span className="text-river-600 italic">Ordinances</span>
+                  </>
+                }
+                description="Access the latest ordinances, resolutions, and programs from the Sangguniang Bayan of Lallo."
+              />
             </ScrollReveal>
           </div>
 
@@ -79,7 +81,10 @@ export default function TransparencySection() {
                         href="#"
                         className="flex items-center justify-between px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-body text-white/90 hover:bg-white/10 hover:border-white/20 transition-all group/link"
                       >
-                        {label}
+                        <span className="flex items-center gap-2">
+                          <FileText className="w-4 h-4 text-white/50 group-hover/link:text-sun-400 transition-colors" />
+                          {label}
+                        </span>
                         <ArrowRight className="w-3 h-3 text-sun-400 group-hover/link:translate-x-1 transition-transform" />
                       </a>
                     ))}
@@ -136,29 +141,43 @@ export default function TransparencySection() {
 
         {/* Modern List Layout for Ordinances */}
         <ScrollReveal>
-          <div className="border border-black/10 rounded-3xl overflow-hidden bg-white mb-24 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
+          <div className="border border-black/10 rounded-3xl overflow-hidden bg-white mb-24 shadow-[0_4px_24px_rgba(0,0,0,0.02)] min-h-[300px] relative">
             <AnimatePresence mode="popLayout">
-              {filtered.map((ord) => (
+              {filtered.length > 0 ? (
+                filtered.map((ord) => (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    key={ord.id}
+                  >
+                    <OrdinanceCard ordinance={ord} />
+                  </motion.div>
+                ))
+              ) : (
                 <motion.div
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  key={ord.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 bg-sand-50"
                 >
-                  <OrdinanceCard ordinance={ord} />
+                  <div className="w-16 h-16 rounded-2xl bg-white border border-black/5 shadow-sm flex items-center justify-center mb-4">
+                    <Search className="w-6 h-6 text-sand-800/30" />
+                  </div>
+                  <h4 className="font-heading text-xl font-medium text-sand-950 mb-2">No records found</h4>
+                  <p className="font-body text-sm text-sand-800/60 max-w-sm mx-auto">
+                    We couldn't find any {activeCategory !== "All" ? activeCategory.toLowerCase() + "s" : "records"} from {activeYear !== "All" ? activeYear : "any year"}. Try adjusting your filters.
+                  </p>
+                  <button
+                    onClick={() => { setActiveCategory("All"); setActiveYear("All"); }}
+                    className="mt-6 px-4 py-2 rounded-full bg-river-950 text-white text-xs font-body font-bold tracking-widest uppercase hover:bg-river-800 transition-colors"
+                  >
+                    Clear Filters
+                  </button>
                 </motion.div>
-              ))}
+              )}
             </AnimatePresence>
-            
-            {filtered.length === 0 && (
-              <div className="py-20 flex flex-col items-center justify-center text-center">
-                <div className="w-16 h-16 rounded-full bg-sand-100 flex items-center justify-center mb-4">
-                  <Search className="w-6 h-6 text-sand-800/30" />
-                </div>
-                <p className="font-body text-sand-800/50">No records found for the selected filters.</p>
-              </div>
-            )}
           </div>
         </ScrollReveal>
 

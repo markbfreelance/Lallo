@@ -17,6 +17,7 @@ export default function Hero() {
   return (
     <section
       id="home"
+      aria-label="Hero — Welcome to Municipality of Lallo, Cagayan"
       className="relative w-full h-[100svh] flex items-center justify-center overflow-hidden"
     >
       {/* Background Image */}
@@ -50,16 +51,16 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8"
         >
-          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md">
+          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/30 bg-black/40 backdrop-blur-md shadow-lg">
             <span className="w-1.5 h-1.5 rounded-full bg-sun-400 animate-pulse shadow-[0_0_10px_rgba(250,204,21,0.8)]" />
-            <span className="text-[10px] sm:text-xs font-body tracking-[0.2em] uppercase text-white/90">
+            <span className="text-[10px] sm:text-xs font-body tracking-[0.2em] uppercase text-white font-semibold">
               Republic of the Philippines
             </span>
           </div>
         </motion.div>
 
         {/* Headline with Mask Reveal */}
-        <h1 className="font-heading text-6xl sm:text-8xl md:text-[8rem] leading-[0.9] font-medium text-white mb-6 tracking-tighter flex overflow-hidden">
+        <h1 className="font-heading text-6xl sm:text-8xl md:text-[8rem] leading-[0.9] font-medium text-white mb-2 pb-6 tracking-tight flex overflow-hidden">
           {titleText.map((char, i) => (
             <motion.span
               key={i}
@@ -70,20 +71,20 @@ export default function Hero() {
                 delay: 0.4 + i * 0.04,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className={char === " " ? "w-4 sm:w-8" : ""}
+              className={char === " " ? "inline-block w-3 sm:w-6" : "inline-block"}
             >
-              {char}
+              {char === " " ? "\u00A0" : char}
             </motion.span>
           ))}
         </h1>
 
         {/* Tagline */}
-        <div className="overflow-hidden mb-10">
+        <div className="overflow-hidden mb-12">
           <motion.p
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading text-xl sm:text-3xl text-heritage-200 italic font-light tracking-wide"
+            className="font-heading text-2xl sm:text-4xl text-white/90 italic font-light tracking-wide drop-shadow-md"
           >
             Where the Cagayan River Meets History
           </motion.p>
@@ -98,7 +99,7 @@ export default function Hero() {
         >
           <Link
             href="#tourism"
-            className="group relative overflow-hidden rounded-full px-8 py-4 bg-white text-river-950 font-body text-sm font-semibold tracking-wide uppercase transition-transform hover:scale-105 active:scale-95"
+            className="group relative overflow-hidden rounded-full px-8 py-4 bg-white text-river-950 font-body text-sm font-bold tracking-wide uppercase transition-transform hover:scale-105 active:scale-95 shadow-xl shadow-black/20"
           >
             <span className="relative z-10">Explore Tourism</span>
             <div className="absolute inset-0 bg-gradient-to-r from-heritage-100 to-sun-200 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1]" />
@@ -106,14 +107,32 @@ export default function Hero() {
           
           <Link
             href="#transparency"
-            className="group relative rounded-full px-8 py-4 border border-white/30 text-white font-body text-sm font-semibold tracking-wide uppercase overflow-hidden transition-transform hover:scale-105 active:scale-95"
+            className="group relative rounded-full px-8 py-4 border-2 border-white/40 bg-black/20 backdrop-blur-sm text-white font-body text-sm font-bold tracking-wide uppercase overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-xl shadow-black/20"
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center justify-center gap-3">
               Gov Updates
-              <span className="block w-4 h-px bg-white group-hover:translate-x-2 transition-transform duration-300" />
+              <span className="inline-block w-6 h-[2px] bg-white group-hover:translate-x-2 transition-transform duration-300" />
             </span>
             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </Link>
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-[3] flex flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        <span className="text-[10px] font-body tracking-[0.2em] uppercase text-white/50">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg className="w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+          </svg>
         </motion.div>
       </motion.div>
 

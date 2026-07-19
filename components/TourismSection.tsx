@@ -9,31 +9,76 @@ import { Car, Hotel, Phone, ChevronRight, ChevronLeft } from "lucide-react";
 
 export default function TourismSection() {
   const [activeIdx, setActiveIdx] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      setWidth(containerRef.current.scrollWidth - containerRef.current.offsetWidth);
+  const scrollToIndex = (index: number) => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const cards = container.children;
+    if (cards[index]) {
+      const card = cards[index] as HTMLElement;
+      const scrollLeft = card.offsetLeft - container.offsetLeft - (container.clientWidth / 2) + (card.clientWidth / 2);
+      container.scrollTo({ left: scrollLeft, behavior: "smooth" });
     }
+  };
+
+  const next = () => scrollToIndex(Math.min(activeIdx + 1, attractions.length - 1));
+  const prev = () => scrollToIndex(Math.max(activeIdx - 1, 0));
+
+  // Sync activeIdx with scroll position natively
+  useEffect(() => {
+    const container = carouselRef.current;
+    if (!container) return;
+
+    let timeoutId: NodeJS.Timeout;
+    const handleScroll = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const cards = container.children;
+        let closestIdx = 0;
+        let minDistance = Infinity;
+        const containerCenter = window.innerWidth / 2;
+
+        for (let i = 0; i < cards.length; i++) {
+          const card = cards[i] as HTMLElement;
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + (rect.width / 2);
+          const distance = Math.abs(containerCenter - cardCenter);
+          
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIdx = i;
+          }
+        }
+        setActiveIdx(closestIdx);
+      }, 50); // Small debounce for performance
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
-  const next = () => {
-    setActiveIdx((prev) => Math.min(prev + 1, attractions.length - 1));
-  };
-  
-  const prev = () => {
-    setActiveIdx((prev) => Math.max(prev - 1, 0));
-  };
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeIdx]); // Depends on activeIdx so prev/next use current state
 
   return (
     <section id="tourism" className="py-24 sm:py-32 bg-river-950 overflow-hidden relative">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-river-900 via-river-950 to-river-950 opacity-50" />
       
-      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[90rem] mx-auto relative z-10">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div className="px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <ScrollReveal>
             <div className="max-w-2xl">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sun-400/30 bg-sun-400/10 text-sun-400 text-xs font-body font-bold tracking-widest uppercase mb-6">
@@ -55,6 +100,7 @@ export default function TourismSection() {
                 onClick={prev}
                 disabled={activeIdx === 0}
                 className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                aria-label="Previous attraction"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -62,6 +108,7 @@ export default function TourismSection() {
                 onClick={next}
                 disabled={activeIdx === attractions.length - 1}
                 className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                aria-label="Next attraction"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -69,28 +116,45 @@ export default function TourismSection() {
           </ScrollReveal>
         </div>
 
-        {/* Carousel */}
-        <div className="relative mb-24" ref={containerRef}>
-          <motion.div 
-            className="flex gap-6 sm:gap-8"
-            animate={{ x: `calc(-${activeIdx * 100}% - ${activeIdx * 2}rem)` }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        {/* Native Scroll Carousel */}
+        <div className="relative mb-10 w-[100vw] left-1/2 -translate-x-1/2">
+          <div 
+            ref={carouselRef}
+            className="flex gap-5 sm:gap-8 overflow-x-auto snap-x snap-mandatory px-[7.5vw] md:px-[calc(50vw-300px)] pb-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
             {attractions.map((attraction, idx) => (
-              <motion.div 
+              <div 
                 key={attraction.id}
-                className="w-full md:w-[600px] flex-shrink-0"
-                animate={{ opacity: activeIdx === idx ? 1 : 0.4 }}
-                transition={{ duration: 0.5 }}
-                onClick={() => setActiveIdx(idx)}
+                className="w-[85vw] md:w-[600px] flex-shrink-0 snap-center transition-all duration-500 cursor-pointer"
+                style={{ 
+                  opacity: activeIdx === idx ? 1 : 0.35, 
+                  transform: `scale(${activeIdx === idx ? 1 : 0.95})` 
+                }}
+                onClick={() => scrollToIndex(idx)}
               >
                 <AttractionCard 
                   attraction={attraction} 
                   isActive={activeIdx === idx}
                 />
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
+        </div>
+
+        {/* Dot Pagination */}
+        <div className="flex items-center justify-center gap-2 mb-24">
+          {attractions.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveIdx(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+              className={`transition-all duration-300 rounded-full ${
+                activeIdx === idx
+                  ? "w-8 h-2 bg-sun-400"
+                  : "w-2 h-2 bg-white/20 hover:bg-white/40"
+              }`}
+            />
+          ))}
         </div>
 
         {/* Plan Your Visit */}

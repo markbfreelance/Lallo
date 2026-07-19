@@ -30,6 +30,9 @@
   --color-heritage-900: oklch(0.33 0.08 28);
 
   /* Sun Gold */
+  --color-sun-50: oklch(0.97 0.04 95);
+  --color-sun-100: oklch(0.94 0.06 90);
+  --color-sun-200: oklch(0.88 0.10 88);
   --color-sun-400: oklch(0.82 0.16 85);
   --color-sun-500: oklch(0.76 0.17 80);
   --color-sun-600: oklch(0.68 0.16 75);
@@ -109,6 +112,11 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* ──────────────────────────────────────────────
    BASE STYLES
    ────────────────────────────────────────────── */
@@ -175,6 +183,16 @@ body {
   backdrop-filter: blur(20px) saturate(1.8);
   -webkit-backdrop-filter: blur(20px) saturate(1.8);
   border: 1px solid oklch(1 0 0 / 0.08);
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, 
+    oklch(1 0 0 / 0) 0%, 
+    oklch(1 0 0 / 0.4) 50%, 
+    oklch(1 0 0 / 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
 
 /* Wave divider */

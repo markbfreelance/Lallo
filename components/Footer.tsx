@@ -1,10 +1,10 @@
 import Link from "next/link";
+import { contactInfo } from "@/lib/data";
 import {
   Phone,
   Mail,
   MapPin,
   Clock,
-  Globe,
   ExternalLink,
   AlertTriangle,
   Shield,
@@ -73,15 +73,15 @@ export default function Footer() {
             <div className="space-y-2 text-sm font-body text-river-300">
               <p className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-river-400" />
-                Municipal Hall, Poblacion, Lallo, Cagayan 3509, Philippines
+                {contactInfo.address}
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="w-4 h-4 flex-shrink-0 text-river-400" />
-                [PLACEHOLDER — Office Phone]
+                {contactInfo.phone}
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="w-4 h-4 flex-shrink-0 text-river-400" />
-                mayor@lallo.gov.ph
+                {contactInfo.email}
               </p>
             </div>
           </div>
@@ -94,6 +94,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {[
                 { label: "Home", href: "#home" },
+                { label: "Services", href: "#services" },
                 { label: "Tourism", href: "#tourism" },
                 { label: "Transparency", href: "#transparency" },
                 { label: "Officials", href: "#officials" },
@@ -110,36 +111,43 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Office Hours */}
+          {/* Column 3: Office Hours & Social */}
           <div>
             <h4 className="font-heading text-base font-semibold mb-4">
               Office Hours
             </h4>
-            <div className="space-y-2 text-sm font-body text-river-300">
-              <p className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-river-400" />
-                Monday–Friday
+            <div className="space-y-2 text-sm font-body text-river-300 mb-6">
+              <p className="flex items-start gap-2">
+                <Clock className="w-4 h-4 mt-0.5 flex-shrink-0 text-river-400" />
+                <span>
+                  {contactInfo.officeHours.split(", ")[0]}
+                  <br />
+                  {contactInfo.officeHours.split(", ")[1]}
+                </span>
               </p>
-              <p className="ml-6">8:00 AM – 5:00 PM</p>
-              <p className="text-xs text-river-400 mt-2">
-                Closed on weekends and national holidays
+              <p className="text-xs text-river-400 mt-2 pl-6">
+                {contactInfo.officeHoursNote}
               </p>
             </div>
 
-            {/* Social */}
-            <div className="mt-6">
-              <h4 className="font-heading text-base font-semibold mb-3">
-                Follow Us
-              </h4>
-              <div className="flex gap-3">
-                <a
-                  href="#"
-                  className="w-9 h-9 rounded-lg bg-river-800/50 flex items-center justify-center hover:bg-river-700 transition-colors"
-                  aria-label="Facebook"
+            <h4 className="font-heading text-base font-semibold mb-3">
+              Follow Us
+            </h4>
+            <div className="flex gap-3">
+              <a
+                href={contactInfo.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-river-800/50 flex items-center justify-center hover:bg-river-700 hover:text-sun-400 transition-colors group"
+                aria-label="Facebook"
+              >
+                <svg
+                  className="w-4 h-4 fill-current text-river-300 group-hover:text-sun-400 transition-colors"
+                  viewBox="0 0 24 24"
                 >
-                  <Globe className="w-4 h-4 text-river-300" />
-                </a>
-              </div>
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+              </a>
             </div>
           </div>
 

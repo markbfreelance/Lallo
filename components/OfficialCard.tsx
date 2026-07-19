@@ -15,35 +15,36 @@ export default function OfficialCard({
 
   if (isSpotlight) {
     return (
-      <div className="group relative w-full h-full min-h-[300px] sm:min-h-[400px] rounded-3xl overflow-hidden bg-river-900 border border-black/5">
-        {/* Full bleed image background placeholder */}
-        <div className="absolute inset-0 bg-gradient-to-br from-river-800 to-river-950 mix-blend-multiply" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-20">
-          <User className="w-32 h-32 text-white/50 group-hover:scale-110 transition-transform duration-700" />
+      <div className="group relative w-full h-full min-h-[300px] rounded-3xl overflow-hidden bg-river-950 border border-river-900 shadow-xl flex flex-col md:flex-row">
+        {/* Photo/Icon Side */}
+        <div className="relative w-full md:w-2/5 h-64 md:h-auto shrink-0 bg-river-900 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-river-800 to-river-950 mix-blend-multiply" />
+          <div className="absolute inset-0 flex items-center justify-center opacity-20">
+            <User className="w-32 h-32 md:w-48 md:h-48 text-white/50 group-hover:scale-110 transition-transform duration-700" />
+          </div>
+          {/* Gradient fade into the content area */}
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-river-950 via-river-950/20 to-transparent" />
         </div>
 
-        {/* Gradient fade from bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-river-950/90 via-river-950/20 to-transparent" />
-
-        {/* Content overlaid at bottom */}
-        <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 flex flex-col justify-end">
-          <p className="font-body text-xs sm:text-sm font-semibold tracking-widest uppercase text-sun-400 mb-1">
+        {/* Content Side */}
+        <div className="relative p-6 sm:p-8 md:p-12 flex flex-col justify-center flex-grow -mt-20 md:mt-0 z-10">
+          <p className="font-body text-xs sm:text-sm font-semibold tracking-widest uppercase text-sun-400 mb-2">
             {official.title}
           </p>
-          <h3 className="font-heading text-3xl sm:text-4xl text-white font-medium mb-4 leading-tight">
+          <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-white font-medium mb-6 leading-tight">
             {official.name}
           </h3>
           
           {official.quote && (
-            <div className="relative pl-4 border-l-2 border-heritage-400/50">
-              <p className="font-body text-sm text-white/80 italic leading-relaxed">
+            <div className="relative pl-5 border-l-2 border-heritage-400/50">
+              <p className="font-body text-sm sm:text-base text-white/80 italic leading-relaxed">
                 "{official.quote}"
               </p>
             </div>
           )}
 
           {official.placeholder && (
-            <span className="inline-block mt-4 text-[10px] uppercase tracking-wider px-3 py-1 bg-white/10 text-white/60 rounded-full font-body backdrop-blur-md self-start border border-white/10">
+            <span className="inline-block mt-6 text-[10px] uppercase tracking-wider px-3 py-1 bg-white/10 text-white/60 rounded-full font-body backdrop-blur-md self-start border border-white/10">
               Update Photo Required
             </span>
           )}

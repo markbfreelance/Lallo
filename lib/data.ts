@@ -40,6 +40,7 @@ export interface NewsItem {
   title: string;
   date: string;
   excerpt: string;
+  category?: string;
   thumbnail?: string;
 }
 
@@ -52,23 +53,54 @@ export interface Department {
   placeholder?: boolean;
 }
 
+export interface Service {
+  id: string;
+  title: string;
+  description: string;
+  icon: string; // lucide icon name
+  link?: string;
+}
+
+export interface ContactInfo {
+  address: string;
+  phone: string;
+  email: string;
+  officialEmail: string;
+  officeHours: string;
+  officeHoursNote: string;
+  facebookUrl: string;
+  mapEmbedUrl: string;
+}
+
+// ── Contact Info (single source of truth) ─────
+
+export const contactInfo: ContactInfo = {
+  address: "Municipal Hall, Poblacion, Lallo, Cagayan 3509, Philippines",
+  phone: "[PLACEHOLDER — Office Phone]",
+  email: "mayor@lallo.gov.ph",
+  officialEmail: "lgu.lallo@cagayan.gov.ph",
+  officeHours: "Monday – Friday, 8:00 AM – 5:00 PM",
+  officeHoursNote: "Closed on weekends and national holidays",
+  facebookUrl: "https://www.facebook.com/LGULallo",
+  mapEmbedUrl: "https://maps.google.com/?q=Lallo,Cagayan,Philippines",
+};
+
 // ── Officials ─────────────────────────────────
 
 export const officials: Official[] = [
   {
     id: "mayor",
-    name: "Hon. Oliver Pascual",
+    name: "Hon. Florence Oliver B. Pascual",
     title: "Municipal Mayor",
     role: "mayor",
     quote:
-      "Together, let us build a Lallo that is progressive, transparent, and deeply rooted in our shared heritage as people of the Cagayan River.",
+      "Together, let us build a Lallo that is progressive, transparent, and deeply rooted in our shared heritage as people of the Cagayan River. Every decision we make in this hall is in service of our 48,000 residents and the generations that will inherit this land.",
   },
   {
     id: "vice-mayor",
-    name: "[PLACEHOLDER — Vice Mayor]",
-    title: "Municipal Vice Mayor / Presiding Officer, Sangguniang Bayan",
+    name: "Hon. Maria Olivia B. Pascual",
+    title: "Municipal Vice Mayor · Presiding Officer, Sangguniang Bayan",
     role: "vice-mayor",
-    placeholder: true,
   },
   {
     id: "sb-1",
@@ -137,14 +169,14 @@ export const officials: Official[] = [
   {
     id: "abc-president",
     name: "[PLACEHOLDER — ABC President]",
-    title: "Association of Barangay Captains President (Ex-Officio)",
+    title: "Ex-Officio · Association of Barangay Captains President",
     role: "ex-officio",
     placeholder: true,
   },
   {
     id: "sk-president",
     name: "[PLACEHOLDER — SK Federation President]",
-    title: "SK Federation President (Ex-Officio)",
+    title: "Ex-Officio · Sangguniang Kabataan Federation President",
     role: "ex-officio",
     placeholder: true,
   },
@@ -200,6 +232,53 @@ export const departments: Department[] = [
     title: "Municipal Engineer",
     icon: "HardHat",
     placeholder: true,
+  },
+];
+
+// ── Municipal Services ────────────────────────
+
+export const services: Service[] = [
+  {
+    id: "civil-registry",
+    title: "Civil Registry",
+    description:
+      "Birth, marriage, and death certificates. PhilSys registration assistance available at the LCRO.",
+    icon: "FileText",
+  },
+  {
+    id: "business-permits",
+    title: "Business Permits & Licensing",
+    description:
+      "New business registration, annual renewals, and mayor's permit processing for commercial establishments.",
+    icon: "Briefcase",
+  },
+  {
+    id: "social-welfare",
+    title: "Social Welfare Programs",
+    description:
+      "4Ps assistance, solo parent IDs, PWD services, senior citizen benefits, and emergency financial aid.",
+    icon: "Heart",
+  },
+  {
+    id: "health-services",
+    title: "Health Services",
+    description:
+      "Free consultations, immunization, prenatal care, and community-based health programs at the Rural Health Unit.",
+    icon: "Stethoscope",
+  },
+  {
+    id: "agriculture",
+    title: "Agricultural Support",
+    description:
+      "Farm inputs, technical assistance, crop insurance facilitation, and livelihood programs for local farmers and fisherfolk.",
+    icon: "Wheat",
+  },
+  {
+    id: "disaster-risk",
+    title: "Disaster Risk Reduction",
+    description:
+      "Typhoon preparedness, evacuation assistance, early warning systems, and post-disaster livelihood recovery.",
+    icon: "ShieldCheck",
   },
 ];
 
@@ -354,37 +433,57 @@ export const newsItems: NewsItem[] = [
     id: "news-1",
     title: "Municipal Hall Renovation Project Reaches 80% Completion",
     date: "2025-10-15",
+    category: "Infrastructure",
     excerpt:
-      "The ongoing renovation of the Lallo Municipal Hall is on track for its December 2025 completion target, featuring improved accessibility and modern office facilities.",
+      "The ongoing renovation of the Lallo Municipal Hall is on track for its December 2025 completion target, featuring improved accessibility ramps, a new public service center, and modernized office facilities for faster resident transactions.",
   },
   {
     id: "news-2",
     title: "Lallo River Rangers Plant 3,000th Mangrove Seedling",
     date: "2025-09-28",
+    category: "Environment",
     excerpt:
-      "The community-based reforestation program hit a major milestone as volunteers from 12 barangays gathered for a mass planting event along the Cagayan River delta.",
+      "The community-based reforestation program hit a major milestone as volunteers from 12 barangays gathered for a mass planting event along the Cagayan River delta, bringing the total to 3,000 seedlings with a 92% survival rate.",
   },
   {
     id: "news-3",
     title: "Free Medical Mission Serves Over 500 Residents",
     date: "2025-09-10",
+    category: "Health",
     excerpt:
-      "In partnership with the Provincial Health Office, the municipality conducted a free medical and dental mission at the Lallo Central School gymnasium.",
+      "In partnership with the Provincial Health Office and the Cagayan Valley Medical Center, the municipality conducted a two-day free medical and dental mission at the Lallo Central School gymnasium.",
   },
   {
     id: "news-4",
-    title: "DPWH Approves Funding for Lallo-Camalaniugan Road Rehabilitation",
+    title: "DPWH Approves ₱45M Funding for Lallo-Camalaniugan Road",
     date: "2025-08-20",
+    category: "Infrastructure",
     excerpt:
-      "The Department of Public Works and Highways has confirmed ₱45 million in funding for the long-awaited rehabilitation of the Lallo-Camalaniugan municipal road.",
+      "The Department of Public Works and Highways confirmed the allocation following Resolution No. 2024-032. Construction is targeted to begin in the first quarter of 2026.",
+  },
+  {
+    id: "news-5",
+    title: "Lallo Recognized as One of Cagayan's Most Transparent LGUs",
+    date: "2025-07-30",
+    category: "Governance",
+    excerpt:
+      "The municipality received recognition from the DILG Cagayan Province for achieving a 'Seal of Good Local Governance' rating, citing consistent compliance with Full Disclosure Policy requirements.",
+  },
+  {
+    id: "news-6",
+    title: "Back-to-School Assistance Program Distributes 1,200 School Kits",
+    date: "2025-07-10",
+    category: "Education",
+    excerpt:
+      "Ahead of the opening of classes, the MSWDO and the Office of the Mayor distributed complete school kits to 1,200 indigent students across all 35 barangays of Lallo.",
   },
 ];
 
 // ── Stats ─────────────────────────────────────
 
 export const municipalStats = [
-  { label: "Barangays", value: 35, suffix: "" },
-  { label: "Residents", value: 48000, suffix: "+" },
-  { label: "Land Area (km²)", value: 700, suffix: "+" },
-  { label: "Municipality Class", value: 1, suffix: "st Class" },
+  { label: "Barangays", value: 35, suffix: "", icon: "Map" },
+  { label: "Residents", value: 48000, suffix: "+", icon: "Users" },
+  { label: "Land Area (km²)", value: 700, suffix: "+", icon: "Maximize2" },
+  { label: "Municipality Class", value: 1, suffix: "st Class", icon: "Award" },
 ] as const;
